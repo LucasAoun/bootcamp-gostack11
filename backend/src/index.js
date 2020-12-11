@@ -1,10 +1,52 @@
 const express = require('express')
-const {uuid} = require('uuidv4')
+const {uuid, isUuid} = require('uuidv4')
 
 const app = express()
+
+/**
+ * Métodos HTTP
+ * GET: Buscar informações do back-end
+ * POST: Enviar informações no back-end
+ * PUT/PATCH: Alterar informações no back-end
+ * DELETE: Deletar informações no back-end
+ */
+
+ /**
+  * Tipos de parâmetros:
+  * 
+  * Query params: Filtros e paginação
+  * Route params: Identificador recursos (atualizar/deletar)
+  * Req body: Conteúdo na hora de criar ou editar um recurso (json)
+  */
+
+  /**
+   * Middleware
+   * 
+   * Interceptador de requisições que interrompe totalmente a requisição ou altera dados da requisição
+   */
+
 app.use(express.json())
+app.use(logRequests)
+app.use('/projects/:id', isValidate) //aplicando isValidate em todas as rotas que contenham projects/:id
 
 const projects = []
+
+function logRequests(req, res, next){
+  const {method, url} = req
+  const logLabel = `[${method.toUpperCase()}] ${url}`
+  console.log(logLabel)
+  return next()
+}
+
+function isValidate(req, res, next){
+  const {id} = req.params
+  if(!isUuid(id)){
+    return res.status(404).json({error: "Not found project ID"})
+  }
+  return next()
+}
+
+
 app.get('/projects', (req, res)=>{
   const {title} = req.query
   const results = title
