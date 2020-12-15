@@ -1,6 +1,6 @@
 const express = require('express')
 const {uuid, isUuid} = require('uuidv4')
-
+const cors = require('cors')
 const app = express()
 
 /**
@@ -26,6 +26,7 @@ const app = express()
    */
 
 app.use(express.json())
+app.use(cors())
 app.use(logRequests)
 app.use('/projects/:id', isValidate) //aplicando isValidate em todas as rotas que contenham projects/:id
 
