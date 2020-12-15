@@ -17,7 +17,20 @@ module.exports={
         use:{
           loader: 'babel-loader',
         } 
+      },
+      {
+        test: /\.css$/,
+        exclude: /node_modules/,
+        use:[
+        {loader: 'style-loader'},
+        {loader: 'css-loader'},
+      ]
+      },{
+      test: /.*\.(gif|png|jpe?g)$/,
+      use:{
+        loader: 'file-loader'
       }
+    }
     ]
   }
 }
