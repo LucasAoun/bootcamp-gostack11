@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { Router } from 'express'
 import { parseISO } from 'date-fns'
 import { getCustomRepository } from 'typeorm'
@@ -15,7 +16,7 @@ appointmentsRouter.get('/', async (req, res) => {
 
 appointmentsRouter.post('/', async (req, res) => {
   try {
-    const { provider, date } = req.body
+    const { provider_id, date } = req.body
 
     const parsedDate = parseISO(date)
 
@@ -23,7 +24,7 @@ appointmentsRouter.post('/', async (req, res) => {
 
     const appointment = await CreateAppointment.execute({
       date: parsedDate,
-      provider
+      provider_id
     })
     return res.json(appointment)
   } catch (err) {

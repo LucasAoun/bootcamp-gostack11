@@ -15,6 +15,7 @@
     "@typescript-eslint"
   ],
   "rules": {
-    "class-methods-use-this": "off"
+    "class-methods-use-this": "off",
+    "@typescript-eslint/camelcase": "off"
   }
 }
